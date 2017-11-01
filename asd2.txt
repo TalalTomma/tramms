@@ -1,0 +1,8 @@
+function update_row($id) {
+	$verbindung = mysqli_connect("localhost", "root", "", "adWords")
+
+	$table = "t_customer";
+
+	$sql = "UPDATE $table SET name = '$name', text = '$text', bilderLink = '$bilderLink'
+	
+}
