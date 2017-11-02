@@ -45,7 +45,15 @@
   
   function delete_entries($id_arg, $table){
     $verbindung = mysqli_connect("localhost", "root", "", "adWords");
-    
+    if(mysqli_connect_errno()){ 
+    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
+    exit; 
+    };
+    if(!mysqli_set_charset($verbindung, "utf8"))
+    {
+      echo "Zeichensatzfehler";
+      exit;
+    }
     $sql = "DELETE FROM $table WHERE id = $id_arg";
     $rows = mysqli_query($verbindung, $sql);
     
@@ -54,10 +62,26 @@
     return $rows;
   }
   
+  /* Erstellen von Kunden
+   * $name = Firmenname;
+   * $text = Beschreibung;
+   * $pic_Link = Firmenlogo Link
+   * $e-Mail = E-Mail Adresse
+   *
+   * Return INT  
+  */
   function create_customer($name, $text, $pic_Link, $e_Mail){
     $table = "t_customer";
     $verbindung = mysqli_connect("localhost", "root", "", "adWords");
-    
+    if(mysqli_connect_errno()){ 
+    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
+    exit; 
+    };
+    if(!mysqli_set_charset($verbindung, "utf8"))
+    {
+      echo "Zeichensatzfehler";
+      exit;
+    }
     $sql = "INSERT INTO $table (name, text, pic_Link, e_Mail) VALUES ('$name', '$text', '$pic_Link', '$e_Mail')";
     $rows = mysqli_query($verbindung, $sql);
     
@@ -66,9 +90,24 @@
     return $rows;
   }
   
+  /* Erstellen von Sozial
+   * $name = Firmenname;
+   * $preLink = Link;
+   *
+   * Return INT  
+  */
   function create_social($name, $preLink){
     $table = "t_social";
     $verbindung = mysqli_connect("localhost", "root", "", "adWords");
+    if(mysqli_connect_errno()){ 
+    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
+    exit; 
+    };
+    if(!mysqli_set_charset($verbindung, "utf8"))
+    {
+      echo "Zeichensatzfehler";
+      exit;
+    }
     
     $sql = "INSERT INTO $table (name, preLink) VALUES ('$name', '$preLink')";
     $rows = mysqli_query($verbindung, $sql);
@@ -77,9 +116,28 @@
     return $rows;
   }
   
+  /* Erstellen von User
+   *
+   * $name = Firmenname;
+   * $preLink = Link;
+   * $pwd = passwordhash
+   * $permission = Rechte
+   * $id_customer = Kunden ID   
+   *
+   * Return INT  
+  */
   function create_user($name, $pwd, $permission, $id_customer){
     $table = "t_user";
     $verbindung = mysqli_connect("localhost", "root", "", "adWords");
+    if(mysqli_connect_errno()){ 
+    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
+    exit; 
+    };
+    if(!mysqli_set_charset($verbindung, "utf8"))
+    {
+      echo "Zeichensatzfehler";
+      exit;
+    }
     
     $sql = "INSERT INTO $table (name, pwd, permission, id_customer) VALUES ('$name', '$pwd', '$permission', '$id_customer')";
     $rows = mysqli_query($verbindung, $sql);
@@ -88,10 +146,61 @@
     return $rows;
   }
   
-  function create_adWords($id_customer, $adWord, $price, $click_count){
-    $table = "t_adwords";
-    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
+  
+  
+  /* Kunden mit Adwords verbinden
+   * $id_customer = Kunden ID
+   * $adword = Wort
+   * $price = Preis f&uuml;r das Wort
+   * $click_count = Z&auml;hler f&uuml;r Klicks
+   *
+   * Return INT  
+  */
+  function combine_customer_adwords($id_customer, $adWord, $price, $click_count){
     
+    /* Erstellen von AdWords (Unique)
+     *
+     * $adword = Wort  
+     *
+     * Return String  
+    */
+    function create_adword($adWord){
+      $table = "t_adword";
+      $verbindung = mysqli_connect("localhost", "root", "", "adWords");
+      if(mysqli_connect_errno()){ 
+      echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
+      exit; 
+      };
+      if(!mysqli_set_charset($verbindung, "utf8"))
+      {
+        echo "Zeichensatzfehler";
+        exit;
+      }
+      
+      $sql = "INSERT INTO $table (adWord) VALUES ('$adWord')";
+      $error = mysqli_error($verbindung);
+      
+      if(!mysqli_query($verbindung, $sql)){
+        mysqli_close($verbindung);
+        return "AdWord schon vorhanden!";
+      }else{
+        mysqli_close($verbindung);      
+        return "Neues AdWord gespeichert";
+      }    
+    }
+    
+    $table = "t_customer_adwords";
+    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
+    if(mysqli_connect_errno()){ 
+    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
+    exit; 
+    };
+    if(!mysqli_set_charset($verbindung, "utf8"))
+    {
+      echo "Zeichensatzfehler";
+      exit;
+    }
+  
     $sql = "INSERT INTO $table (id_customer, adWord, price, click_count) VALUES ('$id_customer', '$adWord', '$price', '$click_count')";
     $rows = mysqli_query($verbindung, $sql);
     
@@ -99,6 +208,31 @@
     return $rows;
   }
   
+  /* Kunden mit Sozials verbinden
+   * $id_customer = Kunden ID
+   * $id_social = Sozial ID
+   *
+   * Return INT  
+  */
+  function combine_customer_social($id_customer, $id_social){
+    $table = "t_customer_social";
+    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
+    if(mysqli_connect_errno()){ 
+    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
+    exit; 
+    };
+    if(!mysqli_set_charset($verbindung, "utf8"))
+    {
+      echo "Zeichensatzfehler";
+      exit;
+    }
   
+    $sql = "INSERT INTO $table (id_customer, id_social) VALUES ('$id_customer', '$id_social')";
+    $rows = mysqli_query($verbindung, $sql);
+    
+    mysqli_close($verbindung);
+    return $rows;
+  }
   
+  create_adword("Baum");
 ?>
