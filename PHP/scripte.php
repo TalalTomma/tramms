@@ -154,7 +154,7 @@
    *
    * Return INT  
   */
-  function combine_customer_adwords($id_customer, $adWord, $price, $click_count){
+  function set_customer_adwords($id_customer, $adWord, $price, $click_count){
     
     $verbindung = mysqli_connect("localhost", "root", "", "adWords");
     if(mysqli_connect_errno()){ 
@@ -173,9 +173,11 @@
      *
      * Return String  
     */
-    function create_adword($adWord){
+    function set_adword($adWord){
       $t_adword = "t_adword";
+      $verbindung = mysqli_connect("localhost", "root", "", "adWords");
       $sql = "INSERT INTO $t_adword (adWord) VALUES ('$adWord')";
+      
       $error = mysqli_error($verbindung);
       
       if(mysqli_query($verbindung, $sql)){
@@ -184,12 +186,22 @@
         return false;
       }    
     }//END create_adword()
-    $isCreated = create_adword($adWord);
+    $isCreated = set_adword($adWord);
     
     $table = "t_customer_adwords";
-    
-    $sql = "INSERT INTO $table (id_customer, adWord, price, click_count) VALUES ('$id_customer', '$adWord', '$price', '$click_count')";
+    // nur INSERT wenn noch nicht vorhanden adWord & id_customer
+    $sql = "SELECT id FROM $table WHERE id_customer = '$id_customer' AND adWord = '$adWord'";
     $rows = mysqli_query($verbindung, $sql);
+    $db_id = mysqli_fetch_assoc($rows);
+    if(!$db_id['id'])
+    {
+      $sql = "INSERT INTO $table (id_customer, adWord, price, click_count) VALUES ('$id_customer', '$adWord', '$price', '$click_count')";
+      $rows = mysqli_query($verbindung, $sql);
+    }else
+    {
+      $sql = "UPDATE $table SET price = $price, click_count = $click_count WHERE id_customer = '$id_customer' AND adWord = '$adWord'";
+      $rows = mysqli_query($verbindung, $sql);
+    }
     
     mysqli_close($verbindung);
     
@@ -228,5 +240,26 @@
     return $rows;
   }
   
-  create_adword("Baum");
+  function get_value($table, $columns, $id){
+    $value = "";
+    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
+    if(mysqli_connect_errno()){ 
+    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
+    exit; 
+    };
+    if(!mysqli_set_charset($verbindung, "utf8"))
+    {
+      echo "Zeichensatzfehler";
+      exit;
+    }
+    
+    $sql = "SELECT $columns FROM $table WHERE id = $id";
+    $rows = mysqli_query($verbindung, $sql);
+    
+    $db_value = mysqli_fetch_assoc($rows);
+    $value = $db_value[$columns];
+    mysqli_close($verbindung);
+    return $value;
+  }  
+  
 ?>

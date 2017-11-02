@@ -43,7 +43,7 @@
                         <label  data-error="wrong" data-success="right">Password</label>
                     </div>
                 </div>
-                <input type="submit" class="waves-effect waves-light btn light-blue lighten-2" style="border-radius:30px;margin: 10px;margin-left:45px;">button</a>
+                <input type="submit" class="waves-effect waves-light btn light-blue lighten-2" style="border-radius:30px;margin: 10px;margin-left:45px;">
             </form>
         </div>
     </div>
@@ -53,6 +53,6 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </body>
 </html>
