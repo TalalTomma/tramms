@@ -1,46 +1,63 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title></title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/mdb.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
+
 <body>
-<section>
-<div class="card" style="width: 44rem;margin:auto;margin-top:200px">
-            <!-- Form login -->
-            <form class="mt-5" style="width: 33rem;padding:30px">
-                <p class="h5 text-center mb-4">Sign in</p>
+<div class="row">
+    <div class="col s7 push-s7" >
+        <div class="row" style="width:90%;float:right;margin:75px;">
+            <div class="col s12 m7">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="images/sample-1.jpg">
+                        <span class="card-title">Card Title</span>
+                    </div>
+                    <div class="card-content">
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
 
-                <div class="md-form">
-                    <i class="fa fa-envelope prefix grey-text"></i>
-                    <input class="form-control" id="defaultForm-email" type="text">
-                    <label for="defaultForm-email">Your email</label>
                 </div>
-
-                <div class="md-form">
-                    <i class="fa fa-lock prefix grey-text"></i>
-                    <input class="form-control" id="defaultForm-pass" type="password">
-                    <label for="defaultForm-pass">Your password</label>
+            </div>
+        </div>
+    </div>
+    <div class="col s5 pull-s7" >
+        <div class="row z-depth-1" style="width: 80%;padding: 20px;margin:75px;border-radius: 5px;">
+            <form class="col s12">
+                <div class="row ">
+                    <h4 style="text-align: center">login</h4>
                 </div>
-
-                <div class="text-center">
-                    <button class="btn btn-default waves-effect waves-light">Login</button>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="email" type="email" class="validate">
+                        <label for="email" data-error="wrong" data-success="right">Benutzer Name</label>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock</i>
+                        <input  type="password" class="validate">
+                        <label  data-error="wrong" data-success="right">Password</label>
+                    </div>
+                </div>
+                <a class="waves-effect waves-light btn light-blue lighten-2" style="border-radius:30px;width:250px;margin: 10px;margin-left:45px;">button</a>
             </form>
-            <!-- Form login -->
+        </div>
+    </div>
 </div>
-        </section>
 
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/popper.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/mdb.min.js"></script>
-  </body>
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
 </html>
