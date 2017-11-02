@@ -144,9 +144,7 @@
     
     mysqli_close($verbindung);
     return $rows;
-  }
-  
-  
+  }  
   
   /* Kunden mit Adwords verbinden
    * $id_customer = Kunden ID
@@ -158,38 +156,6 @@
   */
   function combine_customer_adwords($id_customer, $adWord, $price, $click_count){
     
-    /* Erstellen von AdWords (Unique)
-     *
-     * $adword = Wort  
-     *
-     * Return String  
-    */
-    function create_adword($adWord){
-      $table = "t_adword";
-      $verbindung = mysqli_connect("localhost", "root", "", "adWords");
-      if(mysqli_connect_errno()){ 
-      echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
-      exit; 
-      };
-      if(!mysqli_set_charset($verbindung, "utf8"))
-      {
-        echo "Zeichensatzfehler";
-        exit;
-      }
-      
-      $sql = "INSERT INTO $table (adWord) VALUES ('$adWord')";
-      $error = mysqli_error($verbindung);
-      
-      if(!mysqli_query($verbindung, $sql)){
-        mysqli_close($verbindung);
-        return "AdWord schon vorhanden!";
-      }else{
-        mysqli_close($verbindung);      
-        return "Neues AdWord gespeichert";
-      }    
-    }
-    
-    $table = "t_customer_adwords";
     $verbindung = mysqli_connect("localhost", "root", "", "adWords");
     if(mysqli_connect_errno()){ 
     echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
@@ -200,12 +166,40 @@
       echo "Zeichensatzfehler";
       exit;
     }
-  
+      
+    /* Erstellen von AdWords (Unique)
+     *
+     * $adword = Wort  
+     *
+     * Return String  
+    */
+    function create_adword($adWord){
+      $t_adword = "t_adword";
+      $sql = "INSERT INTO $t_adword (adWord) VALUES ('$adWord')";
+      $error = mysqli_error($verbindung);
+      
+      if(mysqli_query($verbindung, $sql)){
+        return true;
+      }else{        
+        return false;
+      }    
+    }//END create_adword()
+    $isCreated = create_adword($adWord);
+    
+    $table = "t_customer_adwords";
+    
     $sql = "INSERT INTO $table (id_customer, adWord, price, click_count) VALUES ('$id_customer', '$adWord', '$price', '$click_count')";
     $rows = mysqli_query($verbindung, $sql);
     
     mysqli_close($verbindung);
-    return $rows;
+    
+    if($rows)
+    {
+      return true;
+    }else
+    {
+      return false;
+    }
   }
   
   /* Kunden mit Sozials verbinden
