@@ -13,7 +13,7 @@ function showLoginWindow($status)
       if($status == 1) {
         echo "Benutzername/Passwort falsch.";
         } 
-      $Vdata = file_get_contents("login.html");  
+      $Vdata = file_get_contents("../html/login.html");  
       echo $Vdata;
       
 
