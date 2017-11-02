@@ -21,46 +21,58 @@
 </head>
 
 <body>
-  <div class="row">
+  <div class="row" style="padding:70px">
   <div class="col s7"><div class="row">
       <form  >
-          <div class="row" style="margin-top:75px;">
+          <div class="row" style="margin-right:130px">
               <div class="input-field col s12 ">
-                  <input  type="text" class="validate " style=" box-shadow: 2px 2px 7px #e0e0e0;">
+                  <input  type="text" class="validate" value="<?php if(isset($_POST['search'])){ echo $_POST['searchtext']; }?>" style=" box-shadow: 2px 2px 7px #e0e0e0;">
 
                   <label ><i class="material-icons prefix">search</i></label>
               </div>
           </div>
       </form>
   </div></div>
-        <div class="col s5"><div class="row">
-          <div  style="width:90%;float:right;margin:30px;margin-top:90px">
+        <div class="col s5 z-depth-2"  style="width:35%;margin-top:85px;padding:0px ">
+          <!--<div class="row" style="width:90%;float:right;margin:30px;margin-top:90px">
             <div class="card">
-              <div class="card-image">
-                <img src="images/sample-1.jpg">
-                <span class="card-title">Card Title</span>
-              </div>
               <div class="card-content" style="padding:20px;">
-                <div>
-                    </div>
                     Styles make the formatting job much easier
                     <span class="readmore">... <i class=" material-icons" style="font-size:11;">add</i></span>
                     <div class="message">
-                      <?php echo "To give an attractive look to web sites, styles are heavily used.
-                      JQuery is a powerful JavaScript library that allows us to add dynamic elements to our web
-                      sites. Not only it is easy to learn, but it's easy to implement too. A person must have a
-                      good knowledge of HTML and CSS and a bit of JavaScript. jQuery is an open source project
-                      that provides a wide range of features with cross-platform compatibility."; ?>
+                      <?php //costomer text. ?>
+
                     </div>
               </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-        </div>
-
+            </div> -->
+            <div ></div>
+      <div class="section" style="padding:20px">
+        <h4>bing</h4>
       </div>
+
+      <div class="section">
+        <div class="card horizontal" style="margin:0px">
+              <div class="card-image">
+                <img src="https://lorempixel.com/100/190/nature/6">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <p>I am a very simple card. I am good at containing small bits of information.</p>
+                </div>
+
+              </div>
+            </div>
+      </div>
+
+      <div class="section" style="padding:20px">
+        <h5>Section 3</h5>
+        <p>Stuff</p>
+      </div>
+         </div>
+
+        </div>
+
+
 
 
 
