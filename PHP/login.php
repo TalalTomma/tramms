@@ -5,7 +5,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
@@ -16,12 +16,9 @@
         <div class="row" style="width:100%;float:right;margin:75px;">
             <div class="col s12 m7">
                 <div >
-
                     <div class="card-content">
-                        <img src="logo1.png" style="width:100%"/>
-
+                        <img src="../src/logo1.png" style="width:100%"/>
                     </div>
-
                 </div>
             </div>
         </div>
