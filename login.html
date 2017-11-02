@@ -31,25 +31,25 @@
     </div>
     <div class="col s5 pull-s7" >
         <div class="row z-depth-1" style="width: 80%;padding: 20px;margin:75px;border-radius: 5px;">
-            <form class="col s12">
+            <form class="col s12" method="POST" action="session_login.php">
                 <div class="row ">
                     <h4 style="text-align: center">login</h4>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input id="email" type="email" class="validate">
+                        <input id="email" type="text" class="validate" name="name" value="Peter">
                         <label for="email" data-error="wrong" data-success="right">Benutzer Name</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
-                        <input  type="password" class="validate">
-                        <label  data-error="wrong" data-success="right">Password</label>
+                        <input  type="password" class="validate" name="pwd" value="geheim">
+                        <label  data-error="wrong" data-success="right" >Password</label>
                     </div>
                 </div>
-                <a class="waves-effect waves-light btn light-blue lighten-2" style="border-radius:30px;width:250px;margin: 10px;margin-left:45px;">button</a>
+                <input type="submit" class="waves-effect waves-light btn light-blue lighten-2" style="border-radius:30px;width:250px;margin: 10px;margin-left:45px;">button</a>
             </form>
         </div>
     </div>
