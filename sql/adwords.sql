@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 02. Nov 2017 um 11:28
+-- Erstellungszeit: 02. Nov 2017 um 15:36
 -- Server-Version: 10.1.26-MariaDB
 -- PHP-Version: 7.1.9
 
@@ -25,23 +25,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `t_adwords`
+-- Tabellenstruktur für Tabelle `t_adword`
 --
 
-CREATE TABLE `t_adwords` (
+CREATE TABLE `t_adword` (
   `id` int(11) NOT NULL,
-  `id_customer` int(11) NOT NULL,
-  `adWord` varchar(50) NOT NULL,
-  `price` decimal(11,0) NOT NULL DEFAULT '0',
-  `click_count` int(11) NOT NULL DEFAULT '0'
+  `adWord` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Daten für Tabelle `t_adwords`
+-- Daten für Tabelle `t_adword`
 --
 
-INSERT INTO `t_adwords` (`id`, `id_customer`, `adWord`, `price`, `click_count`) VALUES
-(1, 1, 'Ferienwohnung', '10', 1000);
+INSERT INTO `t_adword` (`id`, `adWord`) VALUES
+(19, 'Baum');
 
 -- --------------------------------------------------------
 
@@ -67,6 +64,20 @@ INSERT INTO `t_customer` (`id`, `name`, `text`, `pic_link`, `e_Mail`) VALUES
 (5, 'Marcel', 'Hallo DU', 'agfag', '0'),
 (6, 'Marcel', 'Hallo Du Da', 'www.ttpg.sddgkjjs.', '0'),
 (7, 'CBM', 'Hallo Text', 'www.pic.de', 'info@cbm.de');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `t_customer_adwords`
+--
+
+CREATE TABLE `t_customer_adwords` (
+  `id` int(11) NOT NULL,
+  `id_customer` int(11) NOT NULL,
+  `adWord` varchar(50) NOT NULL,
+  `price` decimal(11,0) NOT NULL DEFAULT '0',
+  `click_count` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -110,7 +121,7 @@ INSERT INTO `t_social` (`id`, `name`, `preLink`) VALUES
 CREATE TABLE `t_user` (
   `id` int(11) NOT NULL,
   `name` varchar(20) DEFAULT NULL,
-  `pwd` varchar(20) DEFAULT NULL,
+  `pwd` varchar(64) DEFAULT NULL,
   `permission` varchar(10) NOT NULL,
   `id_customer` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -120,24 +131,33 @@ CREATE TABLE `t_user` (
 --
 
 INSERT INTO `t_user` (`id`, `name`, `pwd`, `permission`, `id_customer`) VALUES
-(1, 'Talal', 'Hardpw', 'editor', 7);
+(1, 'Talal', 'Hardpw', 'editor', 7),
+(2, 'Peter', 'addb0f5e7826c857d7376d1bd9bc33c0c544790a2eac96144a8af22b1298c940', 'editor', 7);
 
 --
 -- Indizes der exportierten Tabellen
 --
 
 --
--- Indizes für die Tabelle `t_adwords`
+-- Indizes für die Tabelle `t_adword`
 --
-ALTER TABLE `t_adwords`
+ALTER TABLE `t_adword`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_customer` (`id_customer`);
+  ADD UNIQUE KEY `adWord` (`adWord`);
 
 --
 -- Indizes für die Tabelle `t_customer`
 --
 ALTER TABLE `t_customer`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `t_customer_adwords`
+--
+ALTER TABLE `t_customer_adwords`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_customer` (`id_customer`),
+  ADD KEY `adWord` (`adWord`);
 
 --
 -- Indizes für die Tabelle `t_customer_social`
@@ -164,15 +184,21 @@ ALTER TABLE `t_user`
 --
 
 --
--- AUTO_INCREMENT für Tabelle `t_adwords`
+-- AUTO_INCREMENT für Tabelle `t_adword`
 --
-ALTER TABLE `t_adwords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `t_adword`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT für Tabelle `t_customer`
 --
 ALTER TABLE `t_customer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT für Tabelle `t_customer_adwords`
+--
+ALTER TABLE `t_customer_adwords`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
@@ -185,17 +211,18 @@ ALTER TABLE `t_social`
 -- AUTO_INCREMENT für Tabelle `t_user`
 --
 ALTER TABLE `t_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints der exportierten Tabellen
 --
 
 --
--- Constraints der Tabelle `t_adwords`
+-- Constraints der Tabelle `t_customer_adwords`
 --
-ALTER TABLE `t_adwords`
-  ADD CONSTRAINT `t_adwords_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `t_customer` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE `t_customer_adwords`
+  ADD CONSTRAINT `t_customer_adwords_ibfk_1` FOREIGN KEY (`id_customer`) REFERENCES `t_customer` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `t_customer_adwords_ibfk_2` FOREIGN KEY (`adWord`) REFERENCES `t_adword` (`adWord`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Constraints der Tabelle `t_customer_social`
