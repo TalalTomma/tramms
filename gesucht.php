@@ -33,7 +33,7 @@
           </div>
       </form>
   </div></div>
-        <div class="col s5 z-depth-2"  style="margin-top:85px ">
+        <div class="col s5 z-depth-2"  style="width:35%;margin-top:85px;padding:0px ">
           <!--<div class="row" style="width:90%;float:right;margin:30px;margin-top:90px">
             <div class="card">
               <div class="card-content" style="padding:20px;">
@@ -46,17 +46,25 @@
               </div>
             </div> -->
             <div ></div>
-      <div class="section">
-        <h5>Section 1</h5>
-        <p>Stuff</p>
+      <div class="section" style="padding:20px">
+        <h4>bing</h4>
       </div>
-      <div class="divider"></div>
+
       <div class="section">
-        <h5>Section 2</h5>
-        <p>Stuff</p>
+        <div class="card horizontal" style="margin:0px">
+              <div class="card-image">
+                <img src="https://lorempixel.com/100/190/nature/6">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <p>I am a very simple card. I am good at containing small bits of information.</p>
+                </div>
+
+              </div>
+            </div>
       </div>
-      <div class="divider"></div>
-      <div class="section">
+
+      <div class="section" style="padding:20px">
         <h5>Section 3</h5>
         <p>Stuff</p>
       </div>
