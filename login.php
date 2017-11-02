@@ -10,36 +10,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body>
+<body >
 <div class="row">
     <div class="col s7 push-s7" >
-        <div class="row" style="width:90%;float:right;margin:75px;">
+        <div class="row" style="width:100%;float:right;margin:75px;">
             <div class="col s12 m7">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="images/sample-1.jpg">
-                        <span class="card-title">Card Title</span>
-                    </div>
+                <div >
+
                     <div class="card-content">
-                        <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
+                        <img src="logo1.png" style="width:100%"/>
+
                     </div>
 
                 </div>
             </div>
         </div>
     </div>
-    <div class="col s5 pull-s7" >
-        <div class="row z-depth-1" style="width: 80%;padding: 20px;margin:75px;border-radius: 5px;">
-            <form class="col s12">
+    <div class="col s5 pull-s7">
+        <div class="row z-depth-1" style="width: 60%;padding: 20px;margin-top:75px;border-radius: 5px;">
+            <form class="col s12" style="padding-bottom:40px;">
                 <div class="row ">
                     <h4 style="text-align: center">login</h4>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input id="email" type="email" class="validate">
-                        <label for="email" data-error="wrong" data-success="right">Benutzer Name</label>
+                        <input  type="text" class="validate">
+                        <label >Benutzer Name</label>
                     </div>
                 </div>
                 <div class="row">
@@ -49,7 +46,7 @@
                         <label  data-error="wrong" data-success="right">Password</label>
                     </div>
                 </div>
-                <a class="waves-effect waves-light btn light-blue lighten-2" style="border-radius:30px;width:250px;margin: 10px;margin-left:45px;">button</a>
+                <a class="waves-effect waves-light btn light-blue lighten-2" style="border-radius:30px;margin: 10px;margin-left:45px;">button</a>
             </form>
         </div>
     </div>

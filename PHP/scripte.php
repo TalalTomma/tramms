@@ -54,11 +54,11 @@
     return $rows;
   }
   
-  function create_customer($name, $text, $bilderLink, $rangPay){
+  function create_customer($name, $text, $pic_Link, $e_Mail){
     $table = "t_customer";
     $verbindung = mysqli_connect("localhost", "root", "", "adWords");
     
-    $sql = "INSERT INTO $table (name, text, bilderLink, rangPay) VALUES ('$name', '$text', '$bilderLink', '$rangPay')";
+    $sql = "INSERT INTO $table (name, text, pic_Link, e_Mail) VALUES ('$name', '$text', '$pic_Link', '$e_Mail')";
     $rows = mysqli_query($verbindung, $sql);
     
     mysqli_close($verbindung);
@@ -77,10 +77,28 @@
     return $rows;
   }
   
-  function create_user(){
-    $table = "t_user"; 
+  function create_user($name, $pwd, $permission, $id_customer){
+    $table = "t_user";
+    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
+    
+    $sql = "INSERT INTO $table (name, pwd, permission, id_customer) VALUES ('$name', '$pwd', '$permission', '$id_customer')";
+    $rows = mysqli_query($verbindung, $sql);
+    
+    mysqli_close($verbindung);
+    return $rows;
   }
   
-  //create_social("FB2", "www.ttpg.sddgkjjs.");
-  delete_entries(6, "t_social");
+  function create_adWords($id_customer, $adWord, $price, $click_count){
+    $table = "t_adwords";
+    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
+    
+    $sql = "INSERT INTO $table (id_customer, adWord, price, click_count) VALUES ('$id_customer', '$adWord', '$price', '$click_count')";
+    $rows = mysqli_query($verbindung, $sql);
+    
+    mysqli_close($verbindung);
+    return $rows;
+  }
+  
+  
+  
 ?>
