@@ -33,7 +33,7 @@ if(isset($_SESSION['username']))
   }else if($permission == "editor")
   {
     echo "Willkommen EDITOR {$_SESSION['username']}<br >";
-    //header('location:editor.php');
+    header('location:update_maske.php');
   }
 }else if(empty($_POST['pwd']))
 {
@@ -47,7 +47,7 @@ if(isset($_SESSION['username']))
   $verbindung = mysqli_connect("localhost", "root", "", "adWords");
 
   //suche benutzer und passendes passwort
-  $sql = "SELECT pwd, permission FROM $table WHERE name='$name'";
+  $sql = "SELECT id_customer, pwd, permission FROM $table WHERE name='$name'";
   $rows = mysqli_query($verbindung, $sql);
   
   
@@ -69,7 +69,8 @@ if(isset($_SESSION['username']))
           //anmeldung erfolgreich
           $_SESSION['username'] = $name;
           $_SESSION['permission'] = $db_pwd['permission'];
-          header('location:geht.php');
+          $_SESSION['id_customer'] = $db_pwd['id_customer'];
+          header('location:update_maske.php');
           exit;
     //createAdminWindow();
       

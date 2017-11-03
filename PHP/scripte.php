@@ -42,8 +42,7 @@
   }
   
   close($verbindung);*/
-  
-  function delete_entries($id_arg, $table){
+  function get_daten($sql){
     $verbindung = mysqli_connect("localhost", "root", "", "adWords");
     if(mysqli_connect_errno()){ 
     echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
@@ -54,10 +53,18 @@
       echo "Zeichensatzfehler";
       exit;
     }
-    $sql = "DELETE FROM $table WHERE id = $id_arg";
     $rows = mysqli_query($verbindung, $sql);
     
-    mysqli_close($verbindung);
+    return $rows;
+  }
+  /*SELECT t_customer.name 
+FROM `t_customer_adwords`, t_customer 
+WHERE t_customer_adwords.adWord = "Ferienwohnung" AND t_customer_adwords.id_customer = t_customer.id*/
+  
+  function delete_entries($id_arg, $table){
+  
+    $sql = "DELETE FROM $table WHERE id = $id_arg";
+    $rows = get_daten($sql)
     
     return $rows;
   }
@@ -72,20 +79,9 @@
   */
   function create_customer($name, $text, $pic_Link, $e_Mail){
     $table = "t_customer";
-    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
-    if(mysqli_connect_errno()){ 
-    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
-    exit; 
-    };
-    if(!mysqli_set_charset($verbindung, "utf8"))
-    {
-      echo "Zeichensatzfehler";
-      exit;
-    }
-    $sql = "INSERT INTO $table (name, text, pic_Link, e_Mail) VALUES ('$name', '$text', '$pic_Link', '$e_Mail')";
-    $rows = mysqli_query($verbindung, $sql);
     
-    mysqli_close($verbindung);
+    $sqltest = "INSERT INTO $table (name, text, pic_Link, e_Mail) VALUES ('$name', '$text', '$pic_Link', '$e_Mail')";
+    $rows = get_daten($sql)
     
     return $rows;
   }
@@ -98,21 +94,10 @@
   */
   function create_social($name, $preLink){
     $table = "t_social";
-    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
-    if(mysqli_connect_errno()){ 
-    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
-    exit; 
-    };
-    if(!mysqli_set_charset($verbindung, "utf8"))
-    {
-      echo "Zeichensatzfehler";
-      exit;
-    }
     
     $sql = "INSERT INTO $table (name, preLink) VALUES ('$name', '$preLink')";
-    $rows = mysqli_query($verbindung, $sql);
+    $rows = get_daten($sql)
     
-    mysqli_close($verbindung);
     return $rows;
   }
   
@@ -128,21 +113,10 @@
   */
   function create_user($name, $pwd, $permission, $id_customer){
     $table = "t_user";
-    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
-    if(mysqli_connect_errno()){ 
-    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
-    exit; 
-    };
-    if(!mysqli_set_charset($verbindung, "utf8"))
-    {
-      echo "Zeichensatzfehler";
-      exit;
-    }
-    
+        
     $sql = "INSERT INTO $table (name, pwd, permission, id_customer) VALUES ('$name', '$pwd', '$permission', '$id_customer')";
-    $rows = mysqli_query($verbindung, $sql);
+    $rows = get_daten($sql);
     
-    mysqli_close($verbindung);
     return $rows;
   }  
   
@@ -156,17 +130,6 @@
   */
   function set_customer_adwords($id_customer, $adWord, $price, $click_count){
     
-    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
-    if(mysqli_connect_errno()){ 
-    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
-    exit; 
-    };
-    if(!mysqli_set_charset($verbindung, "utf8"))
-    {
-      echo "Zeichensatzfehler";
-      exit;
-    }
-      
     /* Erstellen von AdWords (Unique)
      *
      * $adword = Wort  
@@ -175,12 +138,9 @@
     */
     function set_adword($adWord){
       $t_adword = "t_adword";
-      $verbindung = mysqli_connect("localhost", "root", "", "adWords");
-      $sql = "INSERT INTO $t_adword (adWord) VALUES ('$adWord')";
+      $sql = "INSERT INTO $t_adword (adWord) VALUES ('$adWord')";      
       
-      $error = mysqli_error($verbindung);
-      
-      if(mysqli_query($verbindung, $sql)){
+      if(get_daten($sql)){
         return true;
       }else{        
         return false;
@@ -191,20 +151,18 @@
     $table = "t_customer_adwords";
     // nur INSERT wenn noch nicht vorhanden adWord & id_customer
     $sql = "SELECT id FROM $table WHERE id_customer = '$id_customer' AND adWord = '$adWord'";
-    $rows = mysqli_query($verbindung, $sql);
+    $rows = get_daten($sql);
     $db_id = mysqli_fetch_assoc($rows);
     if(!$db_id['id'])
     {
       $sql = "INSERT INTO $table (id_customer, adWord, price, click_count) VALUES ('$id_customer', '$adWord', '$price', '$click_count')";
-      $rows = mysqli_query($verbindung, $sql);
+      $rows = get_daten($sql);
     }else
     {
       $sql = "UPDATE $table SET price = $price, click_count = $click_count WHERE id_customer = '$id_customer' AND adWord = '$adWord'";
-      $rows = mysqli_query($verbindung, $sql);
+      $rows = get_daten($sql);
     }
-    
-    mysqli_close($verbindung);
-    
+        
     if($rows)
     {
       return true;
@@ -222,44 +180,29 @@
   */
   function combine_customer_social($id_customer, $id_social){
     $table = "t_customer_social";
-    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
-    if(mysqli_connect_errno()){ 
-    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
-    exit; 
-    };
-    if(!mysqli_set_charset($verbindung, "utf8"))
-    {
-      echo "Zeichensatzfehler";
-      exit;
-    }
-  
+      
     $sql = "INSERT INTO $table (id_customer, id_social) VALUES ('$id_customer', '$id_social')";
-    $rows = mysqli_query($verbindung, $sql);
+    $rows = get_daten($sql);
     
-    mysqli_close($verbindung);
     return $rows;
   }
   
+  /* Inhalt aus Spalte zurück geben
+   *
+   * $table = Tabelle
+   * $column = Spalte
+   * $id = id
+   * Return Inhalt aus Column
+  */
   function get_value($table, $columns, $id){
-    $value = "";
-    $verbindung = mysqli_connect("localhost", "root", "", "adWords");
-    if(mysqli_connect_errno()){ 
-    echo "Fehler beim verbindungsaufbau: ".mysqli_connect_errno(); 
-    exit; 
-    };
-    if(!mysqli_set_charset($verbindung, "utf8"))
-    {
-      echo "Zeichensatzfehler";
-      exit;
-    }
     
     $sql = "SELECT $columns FROM $table WHERE id = $id";
-    $rows = mysqli_query($verbindung, $sql);
+    $rows = get_daten($sql);
     
     $db_value = mysqli_fetch_assoc($rows);
     $value = $db_value[$columns];
-    mysqli_close($verbindung);
     return $value;
-  }  
+  }
   
+  echo get_value("t_adword", "adWord", "21");
 ?>
