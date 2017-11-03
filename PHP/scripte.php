@@ -240,6 +240,13 @@
     return $rows;
   }
   
+  /* Inhalt aus Spalte zurück geben
+   *
+   * $table = Tabelle
+   * $column = Spalte
+   * $id = id
+   * Return Inhalt aus Column
+  */
   function get_value($table, $columns, $id){
     $value = "";
     $verbindung = mysqli_connect("localhost", "root", "", "adWords");
