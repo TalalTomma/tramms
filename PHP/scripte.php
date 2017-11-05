@@ -64,7 +64,7 @@ WHERE t_customer_adwords.adWord = "Ferienwohnung" AND t_customer_adwords.id_cust
   function delete_entries($id_arg, $table){
   
     $sql = "DELETE FROM $table WHERE id = $id_arg";
-    $rows = get_daten($sql)
+    $rows = get_daten($sql);
     
     return $rows;
   }
@@ -81,7 +81,7 @@ WHERE t_customer_adwords.adWord = "Ferienwohnung" AND t_customer_adwords.id_cust
     $table = "t_customer";
     
     $sqltest = "INSERT INTO $table (name, text, pic_Link, e_Mail) VALUES ('$name', '$text', '$pic_Link', '$e_Mail')";
-    $rows = get_daten($sql)
+    $rows = get_daten($sql);
     
     return $rows;
   }
@@ -96,7 +96,7 @@ WHERE t_customer_adwords.adWord = "Ferienwohnung" AND t_customer_adwords.id_cust
     $table = "t_social";
     
     $sql = "INSERT INTO $table (name, preLink) VALUES ('$name', '$preLink')";
-    $rows = get_daten($sql)
+    $rows = get_daten($sql);
     
     return $rows;
   }
@@ -187,7 +187,7 @@ WHERE t_customer_adwords.adWord = "Ferienwohnung" AND t_customer_adwords.id_cust
     return $rows;
   }
   
-  /* Inhalt aus Spalte zurück geben
+  /* Inhalt aus Spalte zurÃ¼ck geben
    *
    * $table = Tabelle
    * $column = Spalte
