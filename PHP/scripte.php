@@ -187,7 +187,7 @@ WHERE t_customer_adwords.adWord = "Ferienwohnung" AND t_customer_adwords.id_cust
     return $rows;
   }
   
-  /* Inhalt aus Spalte zurück geben
+  /* Inhalt aus Spalte zurÃ¼ck geben
    *
    * $table = Tabelle
    * $column = Spalte
@@ -228,6 +228,44 @@ WHERE t_customer_adwords.adWord = "Ferienwohnung" AND t_customer_adwords.id_cust
     return $count;
   }
 
+
   //echo get_customersocials_count_from_name(get_customer_from_adword("A4"));
   get_customersocials_count_from_name("Audi");
+
+
+  function get_customer_from_adword($adWord){
+  
+    $sql = "SELECT t_customer.name FROM t_customer, t_customer_adwords WHERE adWord = '$adWord' AND t_customer.id = t_customer_adwords.id_customer";
+    $rows = get_daten($sql);
+    
+    $db_value = mysqli_fetch_assoc($rows);
+    $value = $db_value['name'];
+    
+    return $value;
+  }
+  
+  function get_customerpic_from_adword($adWord){
+  
+    $sql = "SELECT t_customer.pic_link FROM t_customer, t_customer_adwords WHERE adWord = '$adWord' AND t_customer.id = t_customer_adwords.id_customer";
+
+    $rows = get_daten($sql);
+    
+    $db_value = mysqli_fetch_assoc($rows);
+    $value = $db_value['pic_link'];
+    
+    return $value;
+  }
+  
+  function get_customertext_from_adword($adWord){
+  
+    $sql = "SELECT t_customer.text FROM t_customer, t_customer_adwords WHERE adWord = '$adWord' AND t_customer.id = t_customer_adwords.id_customer";
+
+    $rows = get_daten($sql);
+    
+    $db_value = mysqli_fetch_assoc($rows);
+    $value = $db_value['text'];
+    
+    return $value;
+  }
+
 ?>
